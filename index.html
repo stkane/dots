@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<style type="text/css">
+			body {
+				margin: 0;
+				font-family: sans-serif;
+				font-size: 11px;
+			}
+
+
+		</style>
+	</head>	
+
+	<body style="background-color: lightyellow">
+
+		<script>
+		function dataMaker(array) {
+			for(i = 0; i < 30; i++) {
+				array.push(i);
+			}
+		}
+
+		dataArray = [];
+
+		dataMaker(dataArray);
+
+		function getRandomColor() {
+			  var letters = '0123456789ABCDEF';
+			  var color = '#';
+			  for (var i = 0; i < 6; i++) {
+			    color += letters[Math.floor(Math.random() * 16)];
+			  }
+			  return color;
+		}
+
+		let w = window.innerWidth;
+		let h = window.innerHeight;
+
+		var canvas = d3.select("body")
+					.append("svg")
+					.attr("width", w)
+					.attr("height", h);
+
+		var circles = canvas.selectAll("circle")
+					.data(dataArray)
+					.enter()
+						.append("circle")
+						.attr("r", 25)
+						.attr("cx", function(d) {return (Math.random() * w)})
+						.attr("cy", function(d) {return (Math.random() * h)})
+						.attr("fill", getRandomColor())
+						.attr("id", function(d) {return "dot" + d});
+
+		var clickCircle = d3.select("#dot1")
+						.attr("fill", getRandomColor())
+
+		clickCircle.on("click", function() {
+			circles.transition()
+			.duration(1000)
+			.attr("cx", function(d) {return (Math.random() * w)})
+			.attr("cy", function(d) {return (Math.random() * h)})
+			.attr("fill", getRandomColor());
+
+			clickCircle.transition()
+			.duration(1000)
+			.attr("cx", function(d) {return (Math.random() * w)})
+			.attr("cy", function(d) {return (Math.random() * h)})
+			.attr("fill", getRandomColor());
+		});
+
+		</script>
+
+	</body>
+
+</html>
