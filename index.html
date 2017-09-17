@@ -3,7 +3,7 @@
 <html>
 
 	<head>
-		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		<style type="text/css">
 			body {
 				margin: 0;
@@ -50,13 +50,24 @@
 					.enter()
 						.append("circle")
 						.attr("r", 25)
-						.attr("cx", function(d) {return (Math.random() * w)})
-						.attr("cy", function(d) {return (Math.random() * h)})
+						.attr("cx", function(d) {return (w/2)})
+						.attr("cy", function(d) {return (h/2)})
 						.attr("fill", getRandomColor())
 						.attr("id", function(d) {return "dot" + d});
 
 		var clickCircle = d3.select("#dot1")
 						.attr("fill", getRandomColor())
+						.attr("stroke", getRandomColor())
+						.attr("stroke-width", 5);
+
+		canvas.selectAll("circle")
+			circles.transition()
+			.delay(500)
+			.duration(1000)
+			.attr("cx", function(d) {return (Math.random() * w)})
+			.attr("cy", function(d) {return (Math.random() * h)});
+
+		
 
 		clickCircle.on("click", function() {
 			circles.transition()
@@ -69,8 +80,11 @@
 			.duration(1000)
 			.attr("cx", function(d) {return (Math.random() * w)})
 			.attr("cy", function(d) {return (Math.random() * h)})
-			.attr("fill", getRandomColor());
+			.attr("fill", getRandomColor())
+			.attr("stroke", getRandomColor());
 		});
+
+
 
 		</script>
 
